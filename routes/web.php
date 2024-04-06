@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -28,8 +29,13 @@ Route::get('/',[ProductController::class,'index'])-> name('homepage');
 
 // Route::get('/login', [UserController::class, 'login'])->name('login');
 
-Route::get('/producttype/{id}',[ProductController::class,'getProductType'])-> name('getProductType');
+
 
 Route::get('/pricing',[ProductController::class,'showPricing'])-> name('pricing');
 
 Route::get('/checkout',[ProductController::class,'checkout'])-> name('checkout');
+
+//để liên kết với nút hình Giỏ hàng để thêm sản phẩm vào giỏ hàng
+Route::get('/add-to-cart/{id}',[HomeController::class,'addToCart'])->name('banhang.addtocart');
+
+Route::get('/producttype/{id}',[HomeController::class,'getProductType'])-> name('getProductType');

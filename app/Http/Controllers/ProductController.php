@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
 use App\Models\ProductType;
+use Illuminate\Support\Facades\Session;
+
 class ProductController extends Controller
 {
     /**
@@ -51,9 +54,12 @@ class ProductController extends Controller
         //
     }
 
-    public function getProductType($id){
-        $producttype = ProductType::find($id);
-        return view('product_type', compact('producttype'));
+    
+
+    public function getinfoproducts()
+    {
+        $products = Product::all();
+        return view ('product_type', compact('products'));
     }
 
     /**
@@ -71,4 +77,7 @@ class ProductController extends Controller
     {
         //
     }
+
+    
+  
 }
