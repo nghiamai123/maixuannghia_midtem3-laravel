@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
-
+    
     public function getProductType($id)
     {
         $producttype = ProductType::find($id);
@@ -29,5 +29,30 @@ class HomeController extends Controller
         $cart->add($product, $id);
         $request->session()->put('cart', $cart);
         return redirect()->back();
+    }
+
+    public function deleteCart(Request $request, $id)
+    {
+        $product = Product::find($id);
+        if ($product) {
+            if (Session::has('cart')) {
+                $oldCart = Session('cart') ? Session::get('cart') : null;
+                $cart = $oldCart;
+                $cart->removeItem($id);
+                return redirect('/')->with('message', 'Delete item from your cart successfully');
+                // Kiểm tra xem mục đã được xóa thành công hay không
+                if ($cart->items && count($cart->items) > 0) {
+                    Session::put('cart', $cart);
+                    return redirect('/')->with('message', 'Delete item from your cart successfully');
+                } else {
+                    Session::forget('cart');
+                    return redirect('/')->with('error', 'Cannot delete item from your cart successfully');
+                }
+            } else {
+                return redirect('/')->with('error', 'No items in your cart');
+            }
+        } else {
+            return redirect('/')->with('error', 'No items in your cart');
+        }
     }
 }

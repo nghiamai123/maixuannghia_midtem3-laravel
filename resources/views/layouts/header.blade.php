@@ -32,20 +32,20 @@
                 </div>
 
                 <div class="beta-comp">
-                    <div class="cart">
-                  <div class="beta-select"> 
-                            <a href=""><i class="fa fa-shopping-cart"></i> Giỏ hàng (Trống)</a>
+                    <!-- <div class="cart"> -->
+                  <!-- <div class="beta-select">  -->
+                            <!-- <a href=""><i class="fa fa-shopping-cart"></i> Giỏ hàng (Trống)</a>
                         </div>
-                        <div class="beta-comp">
+                        <div class="beta-comp"> -->
                             @if(Session::has('cart'))
                             <div class="cart">
-                                <div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng (@if(Session::has('cart')){{ Session('cart')->totalQty }} 
+                                <div class="beta-select"><a href="{{ route('shoppingCard') }}"><i class="fa fa-shopping-cart"></i></a>Giỏ hàng (@if(Session::has('cart')){{ Session('cart')->totalQty }} 
                                     @else Trống @endif) <i class="fa fa-chevron-down"></i></div>
                                 
                                     <div class="beta-dropdown cart-body">
                                         @foreach($productCarts as $product)
                                         <div class="cart-item">
-                                            <a class="cart-item-delete" href=""><i class="fa fa-times"></i>
+                                            <a class="cart-item-delete" href="{{ route('delete-cart', ['id'=>$product['item']['id']])}}"><i class="fa fa-times"></i>
                                             </a>
                                             <div class="media">
                                                 <a class="pull-left" href="#"><img src="/source/image/product/{{ $product['item']['image'] }}" alt=""></a>
@@ -68,21 +68,21 @@
     
                                             <div class="center">
                                                 <div class="space10">&nbsp;</div>
-                                                <a href="" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>
+                                                <a href="{{ route('checkout') }}" class="beta-btn primary text-center">Đặt hàng<i class="fa fa-chevron-right"></i></a>
                                             </div>
                                         </div>
                                     </div>
                             </div> <!-- .cart -->
                             @endif
-                        </div>
-                    </div> <!-- .cart -->
+                        <!-- </div> -->
+                    <!-- </div> .cart -->
 
 
 
 
 
                     
-                </div>
+                <!-- </div> -->
             </div>
             <div class="clearfix"></div>
         </div> <!-- .container -->

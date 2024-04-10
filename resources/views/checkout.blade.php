@@ -63,6 +63,7 @@
 						<div class="your-order-body" style="padding: 0px 10px">
 							<div class="your-order-item">
 								<div>
+									@if(session_has_car)
 									<!--  one item	 -->
 									<div class="media">
 										<img width="25%" src="/source/assets/dest/images/shoping1.jpg" alt="" class="pull-left">

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Cart2;
 use App\Models\ProductType;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -51,33 +52,46 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('editCart', ['Id' => $id]);
+        // return $id;
     }
 
-    
+
 
     public function getinfoproducts()
     {
         $products = Product::all();
-        return view ('product_type', compact('products'));
+        return view('product_type', compact('products'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        if (!$product) {
+            return redirect()->back()->with('error', 'Product not found');
+        }
+
+        $oldCart = $request->session()->get('cart');
+        $cart = $oldCart; // Thay thế YourCartClass bằng tên lớp chứa hàm updateQty
+        $cart->updateQty($id, $request->input('qty')); // Gọi hàm updateQty để cập nhật số lượng
+
+        $request->session()->put('cart', $cart);
+
+        return redirect('/cart/shopping-cart')->with('message', 'Quantity updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function showCheckout(Request $request)
     {
-        //
+        $cart = Session::get('cart');
+        return view('checkout', compact('cart'));
     }
 
-    
-  
+    public function shoppingCard()
+    {
+        // $cart = Session::get('cart');
+        return view('shopping_cart');
+    }
 }

@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
 
-        Facades\View::composer(['layouts.header'],function(View $view){
+        Facades\View::composer(['layouts.header', 'shopping_cart'],function(View $view){
             if(Session('cart')){
                 $oldCart=Session::get('cart'); 
                 $cart=new Cart2();
