@@ -65,4 +65,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+
+    // Đăng ký middleware:
+    protected $routeMiddleware = [
+       //cái có sẵn để y, thêm vào:
+        'adminLogin'=>'\App\Http\Middleware\AdminLoginMiddleware::class'
+    ];
 }

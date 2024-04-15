@@ -85,8 +85,10 @@ class ProductController extends Controller
 
     public function showCheckout(Request $request)
     {
-        $cart = Session::get('cart');
-        return view('checkout', compact('cart'));
+        $oldCart = $request->session()->get('cart'); //session cart được tạo trong method addToCart của PageController
+        // $cart=new Cart2();
+        $cart = $oldCart;
+        return view("checkout", ['cart' => $request->session()->get('cart'), 'productCarts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'totalQty' => $cart->totalQty]);
     }
 
     public function shoppingCard()
