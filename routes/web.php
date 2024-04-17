@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\paymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -34,7 +35,6 @@ Route::get('/',[ProductController::class,'index'])-> name('homepage');
 
 
 Route::get('/pricing',[ProductController::class,'show'])-> name('pricing');
-
 
 Route::get('/add-to-cart/{id}',[HomeController::class,'addToCart'])->name('banhang.addtocart');
 Route::get('/producttype/{id}',[HomeController::class,'getProductType'])-> name('getProductType');
@@ -75,9 +75,14 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 			Route::get('sua/{id}',[CategoryController::class,'getCateEdit'])->name('admin.getCateEdit');
 			Route::post('sua/{id}',[CategoryController::class,'postCateEdit'])->name('admin.postCateEdit');
 		});
-
 		//viết tiếp các route khác cho crud products, users,.... thì viết tiếp
-
 });
 
+
+Route::get('/pay', [paymentController::class, 'index']);
+Route::post('/pay/postCheckout', [paymentController::class, 'postCheckout'])->name('checkout.payment');
+Route::get('/getHistory', [paymentController::class, 'getHistory']);
+
 Route::get('/checkout', [HomeController::class, 'checkout']);
+Route::get('/Contacts', [HomeController::class, 'contacts']);
+Route::post('/Contacts/send', [HomeController::class, 'sendMessages'])->name('sendMessages');

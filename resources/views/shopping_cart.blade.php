@@ -56,7 +56,16 @@
 						</td>
 
 						<td class="product-quantity">
-							{{ $product['qty'] }}
+							<!-- {{-- $product['qty'] --}} -->
+							<form action="{{ route('storeEdit', $product['item']['id']) }}" method="">
+								@csrf
+								@method('PUT')
+								<div class="form-group">
+									<label for="qty">Quantity:</label>
+									<input type="number" name="qty" id="qty" min="1" value="{{ $product['qty'] }}">
+								</div>
+								<button type="submit">Update</button>
+							</form>
 						</td>
 
 						<td class="product-subtotal">
@@ -81,7 +90,7 @@
 							</div>
 
 							<button type="submit" class="beta-btn primary" name="update_cart">Update Cart <i class="fa fa-chevron-right"></i></button>
-							<button type="submit" class="beta-btn primary" name="proceed">Proceed to Checkout <i class="fa fa-chevron-right"></i></button>
+							<button type="submit" class="beta-btn primary" name="proceed"><a href="{{url('cart/checkout')}}">Proceed to Checkout</a><i class="fa fa-chevron-right"></i></button>
 						</td>
 					</tr>
 				</tfoot>

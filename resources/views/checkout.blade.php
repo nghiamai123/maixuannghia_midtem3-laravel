@@ -3,7 +3,8 @@
 <div class="container">
 	<div id="content">
 
-		<form action="#" method="post" class="beta-form-checkout">
+		<form action="{{route('checkout.payment')}}" method="post" class="beta-form-checkout">
+			@csrf
 			<div class="row">
 				<div class="col-sm-6">
 					<h4>Đặt hàng</h4>
@@ -11,7 +12,7 @@
 
 					<div class="form-block">
 						<label for="name">Họ tên*</label>
-						<input type="text" id="name" placeholder="Họ tên" required>
+						<input type="text" id="name" name="name" placeholder="Họ tên" required>
 					</div>
 					<div class="form-block">
 						<label>Giới tính </label>
@@ -22,23 +23,23 @@
 
 					<div class="form-block">
 						<label for="email">Email*</label>
-						<input type="email" id="email" required placeholder="expample@gmail.com">
+						<input type="email" name="email" id="email" required placeholder="expample@gmail.com">
 					</div>
 
 					<div class="form-block">
 						<label for="adress">Địa chỉ*</label>
-						<input type="text" id="adress" placeholder="Street Address" required>
+						<input type="text" id="adress" placeholder="Street Address" name="address" required>
 					</div>
 
 
 					<div class="form-block">
 						<label for="phone">Điện thoại*</label>
-						<input type="text" id="phone" required>
+						<input type="text" id="phone" name="phone_number" required>
 					</div>
 
 					<div class="form-block">
 						<label for="notes">Ghi chú</label>
-						<textarea id="notes"></textarea>
+						<textarea id="notes" name="notes"></textarea>
 					</div>
 				</div>
 				<div class="col-sm-6">
@@ -118,11 +119,13 @@
 							</ul>
 						</div>
 
-						<div class="text-center"><a class="beta-btn primary" href="#">Đặt hàng <i class="fa fa-chevron-right"></i></a></div>
+						<button class="text-center" type="submit">Đặt hàng <i class="fa fa-chevron-right"></i></button>
 					</div> <!-- .your-order -->
+
 				</div>
 			</div>
 		</form>
+
 	</div> <!-- #content -->
 </div>
 @endsection

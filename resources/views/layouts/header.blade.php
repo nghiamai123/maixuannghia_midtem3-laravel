@@ -110,7 +110,7 @@
                             </ul>
                         </li>
                         <li><a href="{{ route('pricing') }}">Giới thiệu</a></li>
-                        <li><a href="{{ route('homepage') }}">Liên hệ</a></li>
+                        <li><a href="{{ url('/Contacts') }}">Liên hệ</a></li>
                     </ul>
                     <div class="clearfix"></div>
                 </nav>

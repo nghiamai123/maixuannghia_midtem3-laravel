@@ -23,7 +23,7 @@
     <!-- #header -->
     @yield('banner')
     @yield('content')
-    
+    @yield('contacts')
     @include('layouts.footer')
 
     <!-- include js files -->

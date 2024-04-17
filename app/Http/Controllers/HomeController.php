@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserActivationEmail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Cart2;
 use App\Models\ProductType;
 use App\Models\User;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -112,5 +113,27 @@ class HomeController extends Controller
         // $cart=new Cart2();
         $cart = $oldCart;
         return view("checkout", ['cart' => Session::get('cart'), 'productCarts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'totalQty' => $cart->totalQty]);
+    }
+
+    public function contacts()
+    {
+        return view('contacts');
+    }
+
+    public function sendMessages(Request $request)
+    {
+        $data = $request->validate([
+            'your-name' => 'required',
+            'your-email' => 'required|email',
+            'your-subject' => 'required',
+            'your-message' => 'required'
+        ]);
+
+        if($data){
+            Mail::to('nghia.mai25@student.passerellesnumeriques.org')->send(new UserActivationEmail($data));
+
+            return redirect('/')->with('success', 'Gửi tin nhắn thành công');
+        }
+        
     }
 }

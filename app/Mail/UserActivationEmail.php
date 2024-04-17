@@ -9,17 +9,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Mailable
+class UserActivationEmail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $SenData;
+    public $data;
     /**
      * Create a new message instance.
      */
-    public function __construct($SendData)
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -28,19 +27,26 @@ class SendMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Send Mail',
+            subject: 'User Activation Email',
         );
     }
 
     /**
      * Get the message content definition.
      */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
+    /**
+ * Get the message content definition.
+ */
+public function content(): Content
+{
+    return (new Content('name'))
+        ->with([
+            'your-name' => $this->data['your-name'],
+            'your-email' => $this->data['your-email'],
+            'your-subject' => $this->data['your-subject'],
+            'your-message' => $this->data['your-message'],
+        ]);
+}
 
     /**
      * Get the attachments for the message.
